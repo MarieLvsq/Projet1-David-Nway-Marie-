@@ -83,22 +83,23 @@ public class Stagiaire implements Comparable<Stagiaire> {
 			// handle the exception
 		}
 		// Sort the stagiaires list alphabetically by name and firstname
-		Collections.sort(stagiaires);
+		//Collections.sort(stagiaires);
 
 		for (Stagiaire stagiaire : stagiaires) {
 			Noeud noeud = new Noeud(stagiaire);
 			noeuds.add(noeud);
 		}
 		// ask Alix sustainable solution
-		for (Noeud noeud : noeuds) {
+	//	for (Noeud noeud : noeuds) {
 		//	System.out.println(noeud);
 			// pour afficher la liste
 			// System.out.println(stagiaires);
-		}
+	//	}
 		return noeuds;
 	}
 
 	// pour afficher dans ordre alphabetique (o=other)
+	//compare two Stagiaire objects based on their names and then their first names
 	@Override
 	public int compareTo(Stagiaire o) {
 		int result = this.getNom().compareTo(o.getNom());

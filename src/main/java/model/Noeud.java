@@ -50,7 +50,7 @@ public class Noeud {
 		if (this.filsGauche != null) {
 			this.filsGauche.affichageInfixeNoeud();
 		}
-		System.out.println(this.cle.getNom());
+		System.out.println(this.cle);
 		if (this.filsDroit != null) {
 			this.filsDroit.affichageInfixeNoeud();
 		}
