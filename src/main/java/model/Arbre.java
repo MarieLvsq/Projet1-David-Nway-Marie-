@@ -156,9 +156,16 @@ public class Arbre {
 
 	}
 
-	public void modifierStagiaire(int ancienneValeur, int nouvelleValeur) {
-		// en usitisant getNoeuds+
-	}
+		public void modifierStagiaire(Stagiaire stagiaire, String nom, String prenom, String departement, String promo, String annee) {
+			 Noeud noeud = chercherStagiaire(nom);
+			 if (noeud != null) {
+				 supprimerStagiaire(noeud.getCle());
+				 
+				 Stagiaire nouveauStagiaire = new Stagiaire(nom, prenom, departement, promo, annee);
+				 ajouterStagiaire(nouveauStagiaire, noeud);
+			 }
+		}
+		
 
 	public Noeud getRacine() {
 		return racine;

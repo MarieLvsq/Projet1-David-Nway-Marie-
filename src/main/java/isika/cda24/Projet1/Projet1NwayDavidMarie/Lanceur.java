@@ -52,8 +52,8 @@ public class Lanceur {
 //		    i++;
 //	
 //		}
-
-		arbre.getRacine().affichageInfixeNoeud();// afficher racine //
+		// Affichage de la racine :
+		arbre.getRacine().affichageInfixeNoeud();
 		// List<Noeud> nouveauxNoeuds = arbre.getNoeuds();
 		// System.out.println("Liste de nouveaux stagiaires ajoutés:");
 		// for (Noeud noeud : nouveauxNoeuds) {
@@ -61,8 +61,15 @@ public class Lanceur {
 		// }
 
 //		arbre.afficherArbre(); // affichage l'arbre
+		
+		//Suppression d'un stagiaire :
 		arbre.supprimerStagiaire(new Stagiaire("LACROIX", "Pascale", "91", "BOBI 5", "2008"));
-		arbre.tableauArbre(); // affichage de l'arbre sous forme de tableau
+		
+		// Modification des informations d'un stagiaire
+		arbre.modifierStagiaire(new Stagiaire("CHAVENEAU", "Kim Anh", "92", "ATOD 22", "2014"),"CHAVENEAU", "Kim Anh", "92", "AL 22", "2014");
+		
+		// affichage de l'arbre sous forme de tableau :
+		arbre.tableauArbre(); 
 		scanner.close();
 
 //		Noeud noeud = arbre.chercherStagiaire("AGACIAK"); // tested
