@@ -1,10 +1,14 @@
 package isika.cda24.Projet1.Projet1NwayDavidMarie;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 import model.Noeud;
 import model.Stagiaire;
+import model.StagiaireBinaire;
 import model.Arbre;
 
 public class Lanceur {
@@ -20,17 +24,47 @@ public class Lanceur {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		File rep = new File("src/main/java/Fichiers");
+		// cr�e physiquement un repertoire � partir de l'objet sur l'ordinateur
+		boolean caAmarche = rep.mkdir();
+		System.out.println("ca a marche ? " + caAmarche);
+		// cr�e un objet File qui est destin� � un �tre fichier
+		File monFichier = new File("src/main/java/fichiers/Stagiaires.bin");
+		try {
+			// cr�e le fichier physiquement sur l'ordinateur
+			monFichier.createNewFile();
+
+			System.out.println("rep est un repertoire ? " + rep.isDirectory());
+			System.out.println("monFichier est un fichier ? " + monFichier.isFile());
+
+		} catch (IOException e) {
+			System.out.println("�a s'est mal pass�");
+			e.printStackTrace();
+		}
+
+		// test binaire
+		StagiaireBinaire staBi = new StagiaireBinaire();
+		ArrayList<Stagiaire> stagiaires = new ArrayList<Stagiaire>();
+
+		String nomFichier = "STAGIAIRE.DON";
+		String fichierStagiaires = "Stagiaires.bin";
+
+		try {
+			staBi.ecrireFichier(fichierStagiaires, stagiaires);
+			ArrayList<Stagiaire> readStagiaires = staBi.lireFichier(fichierStagiaires);
+			for (Stagiaire s : readStagiaires) {
+				System.out.println(s);
+			}
+		} catch (IOException e) {
+			System.out.println("An error occurred: " + e.getMessage());
+		}
+
 
 		for (Noeud node : noeuds) {
 			arbre.ajouterStagiaire(node.getCle(), arbre.getRacine());
 		}
-//		boolean addMore = true;
-//		int i = 0;
-//		while (addMore && i < noeuds.size()) { 
-//			Noeud noeud = noeuds.get(i);
-//		
-//			arbre.ajouterStagiaire(noeud.getCle(), arbre.getRacine());
-//			
+			
 		System.out.print("Entrez le nom du nouveau stagiaire: ");
 		String nom = scanner.nextLine();
 
@@ -46,19 +80,17 @@ public class Lanceur {
 		System.out.print("Entrez l' annee: ");
 		String annee = scanner.nextLine();
 		arbre.ajouterStagiaire(new Stagiaire(nom, prenom, departement, promo, annee), arbre.getRacine());
+		
 //			System.out.print("Voulez-vous ajouter un autre stagiaire ? (O/N) ");
 //		    String reponse = scanner.nextLine();
 //		    addMore = reponse.equalsIgnoreCase("O");
 //		    i++;
 //	
 //		}
+		
 		// Affichage de la racine :
 		arbre.getRacine().affichageInfixeNoeud();
-		// List<Noeud> nouveauxNoeuds = arbre.getNoeuds();
-		// System.out.println("Liste de nouveaux stagiaires ajoutés:");
-		// for (Noeud noeud : nouveauxNoeuds) {
-		// noeud.affichageInfixeNoeud();
-		// }
+		
 
 //		arbre.afficherArbre(); // affichage l'arbre
 		

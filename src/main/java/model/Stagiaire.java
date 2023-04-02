@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -109,6 +110,76 @@ public class Stagiaire implements Comparable<Stagiaire> {
 			return this.getPrenom().compareTo(o.getPrenom());
 		}
 	}
+	
+	   //TRAVAIL POUR LE FICHIER BINAIRE
+
+	private final static int TAILLE_NOM = 21;
+    private final static int TAILLE_DEPARTEMENT = 2;
+    private final static int TAILLE_PROMO = 11;
+    private final static int TAILLE_PRENOM = 20;
+    private final static int TAILLE_ANNEE = 4;
+    private final static int TAILLE_STAGIAIRE = (TAILLE_NOM +  TAILLE_PRENOM +TAILLE_DEPARTEMENT + TAILLE_PROMO + TAILLE_ANNEE)*2+4;
+    
+    private int taille;
+    
+    public static ArrayList<Stagiaire> lireFichier(String nomFichier) throws IOException {
+        ArrayList<Stagiaire> stagiaires = new ArrayList<Stagiaire>();
+        RandomAccessFile raf = new RandomAccessFile(nomFichier, "r");
+      
+        while (raf.getFilePointer() < raf.length()) {
+            String nom = lireChaine(raf, TAILLE_NOM);
+            String prenom = lireChaine(raf, TAILLE_PRENOM);
+            String departement = lireChaine(raf, TAILLE_DEPARTEMENT);
+            String promo = lireChaine(raf, TAILLE_PROMO);
+            String annee = lireChaine(raf, TAILLE_ANNEE);
+            Stagiaire s = new Stagiaire(nom, prenom,departement, promo,annee);
+            stagiaires.add(s);
+        }
+        raf.close();
+        return stagiaires;
+        
+    }
+		    
+        public static void ecrireFichier(String nomFichier, ArrayList<Stagiaire> stagiaires) throws IOException {
+        RandomAccessFile raf = new RandomAccessFile(nomFichier, "rw");
+        for (Stagiaire s : stagiaires) {
+            raf.writeChars(formaterChaine(s.getNom(), TAILLE_NOM));
+            raf.writeChars(formaterChaine(s.getPrenom(), TAILLE_PRENOM));
+            raf.writeChars(formaterChaine(s.getDepartement(), TAILLE_DEPARTEMENT));
+            raf.writeChars(formaterChaine(s.getPromo(), TAILLE_PROMO));
+            raf.writeChars(formaterChaine(s.getAnnee(), TAILLE_ANNEE));
+        }
+        raf.close();
+    }
+    
+    
+    
+    // pour formatter
+    private static String formaterChaine(String chaine, int taille) {
+        StringBuilder sb = new StringBuilder(chaine);
+        sb.setLength(taille);
+        return sb.toString();
+    }
+// pOUR LIRE
+    private static String lireChaine(RandomAccessFile raf, int taille) throws IOException {
+        byte[] tab = new byte[taille * 2];
+        raf.read(tab);
+        char[] charArray = new char[taille];
+        for (int i = 0, j = 0; i < tab.length; i += 2, j++) {
+            charArray[j] = (char) ((tab[i] << 8) + (tab[i + 1] & 0xFF));
+        }
+        return new String(charArray);
+    }
+
+	
+	
+	public int getTaille() {
+		return taille;
+	}
+	public void setTaille(int taille) {
+		this.taille = taille;
+	}
+	
 
 	public String getNom() {
 		return nom;
@@ -151,4 +222,5 @@ public class Stagiaire implements Comparable<Stagiaire> {
 		return String.format("%s, %s, %s, %s, %s", nom, prenom, departement, promo, annee);
 	}
 
+		
 }

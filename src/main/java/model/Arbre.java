@@ -166,7 +166,6 @@ public class Arbre {
 			 }
 		}
 		
-
 	public Noeud getRacine() {
 		return racine;
 	}
