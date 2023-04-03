@@ -38,14 +38,20 @@ public class AppAccueil extends Application {
 
 	public Scene buildScene() {
 
-		// Création du logo
+		// Création du logo dans une Hbox
 		
-		 Image logo = new Image("/Users/davidlorenco/Documents/LogoProjet.png");
-		 ImageView logoView = new ImageView(logo); logoView.setFitHeight(100);
-		 logoView.setPreserveRatio(true); logoView.setSmooth(true);
-		 logoView.setCache(true);
-		 	
+		HBox hbox = new HBox();
+        hbox.setPadding(new Insets(10));
+        hbox.setSpacing(10);
 		
+//		Image logo = new Image("/Users/davidlorenco/Desktop/LogoProjet1.png");
+//		ImageView logoView = new ImageView(logo);
+//		logoView.setFitHeight(100);
+//		logoView.setPreserveRatio(true);
+//		logoView.setSmooth(true);
+//		logoView.setCache(true);
+//
+//		hbox.getChildren().add(logoView);
 		
 		// Création des labels
 		Label title = new Label("Bienvenue sur notre application !");
@@ -100,7 +106,7 @@ public class AppAccueil extends Application {
 		// Création de la partie "Users"
 
 		VBox usersBox = new VBox(10);
-		usersBox.setAlignment(Pos.CENTER);
+		usersBox.setAlignment(Pos.BOTTOM_CENTER);
 		usersBox.setPadding(new Insets(50));
 		Label usersLabel = new Label("Users");
 		usersLabel.setFont(Font.font("Arial", FontWeight.BOLD, 24));
@@ -115,7 +121,7 @@ public class AppAccueil extends Application {
 
 		// Création de la partie "Admin"
 		VBox adminBox = new VBox(10);
-		adminBox.setAlignment(Pos.CENTER);
+		adminBox.setAlignment(Pos.BOTTOM_CENTER);
 		adminBox.setPadding(new Insets(50));
 		Label adminLabel1 = new Label("Admin");
 		adminLabel1.setFont(Font.font("Arial", FontWeight.BOLD, 24));
@@ -139,11 +145,11 @@ public class AppAccueil extends Application {
 		// Ajout des parties "Users" et "Admin" à une HBox
 		HBox loginBox = new HBox(100);
 		loginBox.getChildren().addAll(usersBox, adminBox);
-		loginBox.setAlignment(Pos.CENTER);
+		loginBox.setAlignment(Pos.BOTTOM_CENTER);
 
 		// Ajout de la HBox à la scène
 		((Group) scene.getRoot()).getChildren().addAll(loginBox);
-		scene.getRoot().setStyle("-fx-font-family: 'Serif'");
+		scene.getRoot().setStyle("-fx-font-family: 'Arial'");
 
 		// Affichage de la scène
 		primaryStage.setScene(scene);

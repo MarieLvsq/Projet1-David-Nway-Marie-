@@ -65,19 +65,19 @@ public class Lanceur {
 			arbre.ajouterStagiaire(node.getCle(), arbre.getRacine());
 		}
 			
-		System.out.print("Entrez le nom du nouveau stagiaire: ");
+		System.out.print("Entrez le nom du nouveau stagiaire : ");
 		String nom = scanner.nextLine();
 
-		System.out.print("Entrez son prenom: ");
+		System.out.print("Entrez son prenom : ");
 		String prenom = scanner.nextLine();
 
-		System.out.print("Entrez son departement: ");
+		System.out.print("Entrez son departement : ");
 		String departement = scanner.nextLine();
 
-		System.out.print("Entrez son promo: ");
+		System.out.print("Entrez sa promotion : ");
 		String promo = scanner.nextLine();
 
-		System.out.print("Entrez l' annee: ");
+		System.out.print("Entrez l' annee : ");
 		String annee = scanner.nextLine();
 		arbre.ajouterStagiaire(new Stagiaire(nom, prenom, departement, promo, annee), arbre.getRacine());
 		
