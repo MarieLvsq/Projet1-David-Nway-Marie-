@@ -2,10 +2,6 @@ package isika.cda24.Projet1.Projet1NwayDavidMarie;
 
 import javafx.stage.Stage;
 
-import java.applet.AudioClip;
-import java.awt.Toolkit;
-import java.io.File;
-
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -33,9 +29,9 @@ import javafx.scene.paint.Stop;
 import javafx.scene.text.Font;
 import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
-import model.Stagiaire;
+import model.Stagiaire2;
 
-public class AppAdmins extends Application {
+public class AppAdminsTest extends Application {
 
 	private Label messageLabel;
 
@@ -103,13 +99,13 @@ public class AppAdmins extends Application {
 						|| promotionField.getText().isEmpty()) {
 					messageLabel.setText("Veuillez remplir tous les champs.");
 				} else {
-					Stagiaire nouveauStagiaire = new Stagiaire(nomField.getText(), prenomField.getText(),
+					Stagiaire2 nouveauStagiaire = new Stagiaire2(nomField.getText(), prenomField.getText(),
 							departementField.getText(), anneeField.getText(), promotionField.getText());
 					// Vérification si le stagiaire existe déjà dans la liste
-					if (Stagiaire.contains(nouveauStagiaire)) {
+					if (Stagiaire2.contains(nouveauStagiaire)) {
 						messageLabel.setText("Erreur : ce stagiaire existe déjà dans l'annuaire.");
 					} else {
-						Stagiaire.add(nouveauStagiaire);
+						Stagiaire2.add(nouveauStagiaire);
 						messageLabel.setText("Stagiaire ajouté avec succès.");
 					}
 
@@ -118,78 +114,57 @@ public class AppAdmins extends Application {
 				}
 			}
 		});
-		// Lier un gestionnaire d'événements au bouton
-        addButton.setOnAction(e -> {
-        	// Charger le fichier audio depuis le dossier resources
-            File file = new File("resources/Mario.mp3");
 
-            // Jouer le son en utilisant la classe Toolkit
-            Toolkit.getDefaultToolkit().beep();
-        });
-        
-    	//********** AUTRE METHODE AUDIO ***********
-//   	 // Charger le fichier audio depuis le dossier resources
-//       File file = new File("resources/Mario.mp3");
-//
-//       // Jouer le son en utilisant la classe Clip
-//       try (AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(file)) {
-//           Clip clip = AudioSystem.getClip();
-//           clip.open(audioInputStream);
-//           clip.start();
-//       } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ex) {
-//           ex.printStackTrace();
-//       }
-//   });
-        
-        
-        
 		// CREATION DU BOUTON RAFRAICHIR + ACTION
 
+		Image imageDecline = new Image(getClass().getResourceAsStream("refresh.png"));
 		Button refreshButton = new Button("Rafraîchir");
+		refreshButton.setGraphic(new ImageView(imageDecline));
+		StackPane layout = new StackPane();
+		layout.getChildren().add(refreshButton);
+		
 		refreshButton.setOnAction(new EventHandler<ActionEvent>() {
-
+		
 			@Override
 			public void handle(ActionEvent event) {
-
+				
 			}
 		});
-
+		
 		Button returnButton = new Button("Retour");
 		returnButton.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
-				
-				
+
 			}
 		});
-		
-		
-		//CREATION DU BOUTON IMPRIMER + ACTION 
-//		
+
+		// CREATION DU BOUTON IMPRIMER + ACTION
+
 //		Button printButton = new Button("Imprimer");
 //		printButton.setOnAction(event -> {
 //		    Printer printer = Printer.getDefaultPrinter();
 //		    PageLayout pageLayout = printer.createPageLayout(Paper.A4, PageOrientation.PORTRAIT, Printer.MarginType.DEFAULT);
 //		    double scaleX = pageLayout.getPrintableWidth() / Stagiaire.getBoundsInParent().getWidth();
-//		    double scaleY = pageLayout.getPrintableHeight() / Stagiaire.getBoundsInParent().getHeight();
-//		    Stagiaire.getTransforms().add(new Scale(scaleX, scaleY));
+//		    double scaleY = pageLayout.getPrintableHeight() / stagiaireTable.getBoundsInParent().getHeight();
+//		    table.getTransforms().add(new Scale(scaleX, scaleY));
 //		    PrinterJob job = PrinterJob.createPrinterJob();
 //		    if (job != null) {
-//		        boolean printed = job.printPage(Stagiaire);
+//		        boolean printed = job.printPage(table);
 //		        if (printed) {
 //		            job.endJob();
 //		        } else {
 //		            messageLabel.setText("Erreur lors de l'impression");
 //		        }
-//		        Stagiaire.getTransforms().remove(Stagiaire.getTransforms().size() - 1);
+//		        table.getTransforms().remove(table.getTransforms().size() - 1);
 //		    } else {
 //		        messageLabel.setText("Impossible de créer la tâche d'impression");
 //		    }
 //		});
 
 		// IL FAUT AJOUTER LE BOUTON PRINT !!!
-		
+
 		buttonBox.getChildren().addAll(addButton, refreshButton, returnButton);
 
 		// Création du BorderPane pour aligner 3 boxes a gauche
@@ -216,23 +191,23 @@ public class AppAdmins extends Application {
 		topBox.setSpacing(5);
 
 		// Créer le TableView pour afficher les stagiaires
-		TableView<Stagiaire> stagiaireTable = new TableView<>();
+		TableView<Stagiaire2> stagiaireTable = new TableView<>();
 		stagiaireTable.setEditable(false);
 
 		// Créer les colonnes du tableau
-		TableColumn<Stagiaire, String> nomCol = new TableColumn<>("Nom");
+		TableColumn<Stagiaire2, String> nomCol = new TableColumn<>("Nom");
 		nomCol.setCellValueFactory(new PropertyValueFactory<>("nom"));
 
-		TableColumn<Stagiaire, String> prenomCol = new TableColumn<>("Prenom");
+		TableColumn<Stagiaire2, String> prenomCol = new TableColumn<>("Prenom");
 		prenomCol.setCellValueFactory(new PropertyValueFactory<>("prenom"));
 
-		TableColumn<Stagiaire, String> departementCol = new TableColumn<>("Département");
+		TableColumn<Stagiaire2, String> departementCol = new TableColumn<>("Département");
 		departementCol.setCellValueFactory(new PropertyValueFactory<>("departement"));
 
-		TableColumn<Stagiaire, Integer> anneeEntreeCol = new TableColumn<>("Année");
+		TableColumn<Stagiaire2, Integer> anneeEntreeCol = new TableColumn<>("Année");
 		anneeEntreeCol.setCellValueFactory(new PropertyValueFactory<>("anneeEntree"));
 
-		TableColumn<Stagiaire, Integer> promotionCol = new TableColumn<>("Promotion");
+		TableColumn<Stagiaire2, Integer> promotionCol = new TableColumn<>("Promotion");
 		promotionCol.setCellValueFactory(new PropertyValueFactory<>("promotion"));
 
 		// Ajouter les colonnes au TableView
@@ -270,7 +245,7 @@ public class AppAdmins extends Application {
 
 				// Récupération du stagiaire sélectionné dans la table
 
-				Stagiaire stagiaireSelectionne = stagiaireTable.getSelectionModel().getSelectedItem();
+				Stagiaire2 stagiaireSelectionne = stagiaireTable.getSelectionModel().getSelectedItem();
 
 				if (stagiaireSelectionne != null) {
 					int index = stagiaireTable.getSelectionModel().getSelectedIndex();
@@ -293,7 +268,7 @@ public class AppAdmins extends Application {
 			@Override
 			public void handle(ActionEvent event) {
 				// Récupération des stagiaires dans la liste
-				Stagiaire stagiaireSelectionne = stagiaireTable.getSelectionModel().getSelectedItem();
+				Stagiaire2 stagiaireSelectionne = stagiaireTable.getSelectionModel().getSelectedItem();
 
 				if (stagiaireSelectionne == null) {
 					messageLabel.setText("Erreur : veuillez sélectionner un stagiaire.");
