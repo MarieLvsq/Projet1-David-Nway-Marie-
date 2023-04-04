@@ -44,7 +44,7 @@ public class Noeud {
 		}
 	}
 
-	// to traverse the BST in an inorder traversal and print the node values to the
+	// to traverse the BST in an in order traversal and print the node values to the
 	// console
 	public void affichageInfixeNoeud() {
 		if (this.filsGauche != null) {
